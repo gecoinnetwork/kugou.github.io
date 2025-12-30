@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ratking</title>
+
 <style>
     body {
         margin: 0;
         padding: 0;
         height: 100vh;
         background: #0f0f0f;
-        color: #fff;
+        color: #ffffff;
         font-family: Arial, sans-serif;
         display: flex;
         justify-content: center;
@@ -21,21 +22,21 @@
 
     /* 淡入动画 */
     @keyframes fadeIn {
-        0% { opacity: 0; transform: translateY(20px); }
-        100% { opacity: 1; transform: translateY(0); }
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     /* 左上角 Logo */
     .logo {
         position: fixed;
-        top: 2%;
-        left: 2%;
+        top: 20px;
+        left: 24px;
         z-index: 10;
         opacity: 0;
         animation: fadeIn 1s forwards;
     }
     .logo img {
-        height: clamp(24px, 4vw, 36px);
+        height: 32px; /* 固定尺寸 */
         width: auto;
     }
 
@@ -66,7 +67,6 @@
     .socials {
         display: flex;
         justify-content: center;
-        flex-wrap: wrap;
         gap: 16px;
         opacity: 0;
         animation: fadeIn 1s forwards;
@@ -74,44 +74,58 @@
     }
 
     .social-btn {
-        width: clamp(40px, 10vw, 60px);
-        height: clamp(40px, 10vw, 60px);
+        width: 56px;
+        height: 56px;
         border-radius: 50%;
         border: 1px solid #ffffff33;
         display: flex;
         justify-content: center;
         align-items: center;
-        text-decoration: none;
-        transition: all 0.3s ease;
         background: #0f0f0f;
-        overflow: hidden;
+        transition: all 0.3s ease;
     }
 
     .social-btn img {
-        width: clamp(20px, 5vw, 28px);
-        height: clamp(20px, 5vw, 28px);
+        width: 26px;
+        height: 26px;
         transition: filter 0.3s ease;
     }
 
     .social-btn:hover {
-        background: #fff;
+        background: #ffffff;
     }
 
     .social-btn:hover img {
         filter: brightness(0);
     }
 
-    /* 手机端优化 */
+    /* 底部邮箱（纯展示） */
+    .footer {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+        opacity: 0.65;
+        letter-spacing: 0.5px;
+        animation: fadeIn 1s forwards;
+        animation-delay: 1.6s;
+    }
+
+    /* 手机端微调 */
     @media (max-width: 380px) {
-        .container {
-            padding: 12px;
+        .social-btn {
+            width: 48px;
+            height: 48px;
         }
-        .socials {
-            gap: 12px;
+        .social-btn img {
+            width: 22px;
+            height: 22px;
         }
     }
 </style>
 </head>
+
 <body>
 
 <!-- 左上角 Logo -->
@@ -124,16 +138,19 @@
     <p>网站正在开发中，敬请期待！</p>
 
     <div class="socials">
-        <!-- X -->
         <a class="social-btn" href="https://x.com/ratkingbnb?s=21" target="_blank" aria-label="X">
-            <img src="x.png" alt="X Logo">
+            <img src="x.png" alt="X">
         </a>
 
-        <!-- Telegram -->
         <a class="social-btn" href="https://t.me/Ratking_bnb" target="_blank" aria-label="Telegram">
-            <img src="telegram.png" alt="Telegram Logo">
+            <img src="telegram.png" alt="Telegram">
         </a>
     </div>
+</div>
+
+<!-- 底部邮箱（不可点击） -->
+<div class="footer">
+    官方邮箱：admin@ratking.xyz
 </div>
 
 </body>
