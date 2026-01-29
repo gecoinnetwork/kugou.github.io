@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KugouCoin - 音乐蜂巢社区，推音乐人出圈</title>
+    <!-- 修复图标库引用（使用稳定的阿里图标库） -->
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_4001235_7yf2k9z09zd.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter", "Microsoft YaHei", sans-serif;
+        }
+        :root {
+            --gold: #D4AF37; 
+            --black: #0A0A0A; 
+            --card-black: #121212; 
+            --light-gray: #E0E0E0; 
+            --gray: #888888; 
+            --white: #FFFFFF; 
+            --thin-border: 1px solid rgba(212, 175, 55, 0.15);
+            --hover-bg: rgba(212, 175, 55, 0.05);
+        }
+        html {
+            scroll-behavior: smooth; /* 平滑滚动 */
+        }
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 70%);
+        }
+        .app-container {
+            display: grid;
+            grid-template-columns: 240px 1fr 320px;
+            min-height: 100vh;
+        }
+        /* 图片容器 */
+        .img-box {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+            background-color: rgba(212, 175, 55, 0.05);
+            border: var(--thin-border);
+        }
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .img-box:hover img {
+            opacity: 1;
+        }
+        .img-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+        .img-caption {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: var(--white);
+            font-size: 14px;
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+        /* 左侧导航 */
+        .sidebar {
+            padding: 30px 20px;
+            border-right: var(--thin-border);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background-color: rgba(212, 175, 55, 0.1);
+            border: var(--thin-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+        }
+        .nav-menu {
+            list-style: none;
+        }
+        .nav-item {
+            margin-bottom: 5px;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            color: var(--light-gray);
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover {
+            background-color: var(--hover-bg);
+            color: var(--gold);
+        }
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 30px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+        /* 中间内容 */
+        .main-content {
+          padding: 40px 30px;
+        }
+        .top-banner {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 60px;
+            position: relative;
+            border: var(--thin-border);
+        }
+        .top-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+        .banner-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+        }
+        .banner-title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 20px;
+            background-color: var(--card-black);
+            border-radius: 16px;
+            border: var(--thin-border);
+        }
+        .hero-tag {
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+        /* 卡片与表格 */
+        .section { margin-bottom: 80px; }
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .content-card {
+            background: var(--card-black);
+            border-radius: 12px;
+            border: var(--thin-border);
+            padding: 25px;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .data-table th, .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: var(--thin-border);
+            font-size: 13px;
+        }
+        .data-table th { color: var(--gold); }
+        /* 路线图 */
+        .roadmap-timeline {
+            border-left: 2px solid rgba(212, 175, 55, 0.3);
+            margin-left: 10px;
+            padding-left: 30px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: var(--card-black);
+            padding: 20px;
+            border-radius: 10px;
+            border: var(--thin-border);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -41px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+        /* 右侧面板 */
+        .right-panel {
+            padding: 30px 20px;
+            border-left: var(--thin-border);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+        .panel-card {
+            background: var(--card-black);
+            padding: 20px;
+            border-radius: 12px;
+            border: var(--thin-border);
+            margin-bottom: 25px;
+        }
+        .tokenomics-display { text-align: center; }
+        .token-tax { font-size: 32px; color: var(--gold); font-weight: bold; }
+        .tax-breakdown { display: flex; justify-content: space-around; margin-top: 15px; }
+        .tax-num { color: var(--gold); font-weight: bold; }
+        .tax-label { font-size: 11px; color: var(--gray); }
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--hover-bg);
+            border-radius: 8px;
+            color: var(--light-gray);
+            text-decoration: none;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        .social-link:hover { color: var(--gold); }
+
+        @media (max-width: 992px) {
+            .app-container { grid-template-columns: 1fr; }
+            .sidebar, .right-panel { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <a href="#" class="logo">
+                <div class="logo-icon"><<i class="iconfont icon-music-queen"></</i></div>
+                KugouCoin
+            </a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link"><<i class="iconfont icon-home-fill"></</i> 首页</a></li>
+                <li class="nav-item"><a href="#vision" class="nav-link"><<i class="iconfont icon-vision-fill"></</i> 项目愿景</a></li>
+                <li class="nav-item"><a href="#innovation" class="nav-link"><<i class="iconfont icon-lightbulb-fill"></</i> 核心创新</a></li>
+                <li class="nav-item"><a href="#tokenomics" class="nav-link"><<i class="iconfont icon-coin-gold"></</i> 代币经济</a></li>
+                <li class="nav-item"><a href="#roadmap" class="nav-link"><<i class="iconfont icon-roadmap-fill"></</i> 路线图</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link"><<i class="iconfont icon-about-fill"></</i> 关于我们</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>© 2026 KugouCoin</p>
+                <p>音乐蜂巢社区</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="top-banner">
+                <img src="https://picsum.photos/id/96/1200/300" alt="Banner">
+                <div class="banner-content">
+                    <h2 class="banner-title">KugouCoin - 音乐属于社区</h2>
+                    <p>用任务与赛事，推音乐人走向大舞台</p>
+                </div>
+            </div>
+
+            <section id="home" class="hero">
+                <span class="hero-tag">MUSIC HIVE COMMUNITY</span>
+                <h1>让每一个普通人，都能推出下一个华语新星</h1>
+                <p>KugouCoin 是一个去中心化的“音乐共建者”生态系统</p>
+                <a href="#vision" class="btn">立即探索</a>
+            </section>
+
+            <section id="vision" class="section">
+                <h2 class="section-title"><<i class="iconfont icon-vision-fill"></</i> 项目愿景</h2>
+                <div class="card-grid">
+                    <div class="content-card">
+                        <div class="img-box">
+                            <img src="https://picsum.photos/id/1074/400/250" alt="Pain Points">
+                            <div class="img-caption">解决行业痛点</div>
+                        </div>
+                        <h3 style="color:var(--gold); margin-bottom:15px;">行业现状</h3>
+                        <p style="font-size:14px; color:var(--gray);">传统行业新人缺少舞台，粉丝支持无法获得真实回馈。</p>
+                    </div>
+                    <div class="content-card">
+                        <div class="img-box">
+                            <img src="https://picsum.photos/id/1082/400/250" alt="Mission">
+                            <div class="img-caption">我们的使命</div>
+                        </div>
+                        <h3 style="color:var(--gold); margin-bottom:15px;">核心使命</h3>
+                        <p style="font-size:14px; color:var(--gray);">建立可复制的出圈路径，让社区决定谁是下一个巨星。</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="innovation" class="section">
+                <h2 class="section-title"><<i class="iconfont icon-lightbulb-fill"></</i> 行业空白创新</h2>
+                <div class="content-card">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <<th>创新维度</</th>
+                                <<th>KugouCoin 方案</</th>
+                                <<th>传统 Web3 音乐</</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>增长引擎</td>
+                                    <td>任务驱动（翻唱/二创）</td>
+                                    <td>单纯流媒体播放</td>
+                                </tr>
+                                <tr>
+                                    <td>用户身份</td>
+                                    <td>音乐共建者（Builder）</td>
+                                    <td>普通听众</td>
+                                </tr>
+                                <tr>
+                                    <td>职业出口</td>
+                                    <td>年度冠军赛 + 厂牌签约</td>
+                                    <td>仅 NFT 交易</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+    
+                <section id="tokenomics" class="section">
+                    <h2 class="section-title"><<i class="iconfont icon-coin-gold"></</i> 代币经济</h2>
+                    <div class="content-card" style="text-align:center;">
+                        <div class="token-tax">3% 交易税</div>
+                        <div class="tax-breakdown">
+                            <div><div class="tax-num">1%</div><div class="tax-label">永久销毁</div></div>
+                            <div><div class="tax-num">1%</div><div class="tax-label">流动性池</div></div>
+                            <div><div class="tax-num">1%</div><div class="tax-label">音乐基金</div></div>
+                        </div>
+                        <p style="margin-top:20px; font-size:14px; color:var(--gray);">每一笔交易都在资助音乐人的梦想</p>
+                    </div>
+                </section>
+    
+                <section id="roadmap" class="section">
+                    <h2 class="section-title"><<i class="iconfont icon-roadmap-fill"></</i> 发展路线图</h2>
+                    <div class="roadmap-timeline">
+                        <div class="timeline-item">
+                            <h4 style="color:var(--gold);">Phase 1: 社区启动</h4>
+                            <p style="font-size:13px;">官网上线，首批博主入驻，开启任务赛季。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color:var(--gold);">Phase 2: 蜂巢系统</h4>
+                            <p style="font-size:13px;">任务大厅上线，月度热度榜单开启。</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color:var(--gold);">Phase 3: 年度冠军赛</h4>
+                            <p style="font-size:13px;">举办首届 Championship，签约出圈艺人。</p>
+                        </div>
+                    </div>
+                </section>
+    
+                <section id="about" class="section">
+                    <div class="content-card">
+                        <h3 style="color:var(--gold); margin-bottom:15px;">关于我们</h3>
+                        <p style="font-size:14px; color:var(--light-gray);">KugouCoin 是由全球华语音乐爱好者共同发起的 Web3 实验，旨在打破资本垄断，回归音乐初心。</p>
+                    </div>
+                </section>
+            </main>
+    
+            <aside class="right-panel">
+                <div class="panel-card">
+                    <h4 style="color:var(--gold); margin-bottom:15px;"><<i class="iconfont icon-link-fill"></</i> 官方链接</h4>
+                    <a href="https://x.com/kugoucoin" target="_blank" class="social-link"><<i class="iconfont icon-twitter-fill"></</i> X (Twitter)</a>
+                    <a href="https://t.me/Kugoucoin" target="_blank" class="social-link"><<i class="iconfont icon-telegram-fill"></</i> Telegram Group</a>
+                    <a href="mailto:admin@kugoucoin.com" class="social-link"><<i class="iconfont icon-email-fill"></</i> 商务合作</a>
+                </div>
+    
+                <div class="panel-card">
+                    <h4 style="color:var(--gold); margin-bottom:15px;"><<i class="iconfont icon-organization-fill"></</i> 生态委员会</h4>
+                    <p style="font-size:12px; color:var(--gray);">由社区投票选出的 21 位代表组成，负责审核音乐基金的支出流向。</p>
+                </div>
+            </aside>
+        </div>
+    </body>
+    </html>
+
+    
